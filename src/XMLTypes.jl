@@ -29,11 +29,15 @@ attributes(element::XMLElement) = element.attributes
 "Returns iterator of `Union{String,XMLElement}` for element contents."
 content(element::XMLElement) = element.content
 
+# stub `name` method so users can override later
+export name
+name(::XMLElement) = ""
+
 export dump_attributes, dump
 
 "Turns an iterator of `Pair{String,String}` into standard XML tag attributes."
 function dump_attributes(attributes)::String
-    join(map(p -> "$(p.first)=\"$(p.second)\"", attributes), " ")
+    join(map(p -> " $(p.first)=\"$(p.second)\"", attributes), "")
 end
 
 "Turns an `XMLElement` into its canonical tag-form representation."
@@ -45,12 +49,10 @@ function dump(element::XMLElement)::String
     content_str = join(dump.(content(element)), "")
     # If no content, we can use a self-closing tag
     if length(content(element)) == 0
-        """
-        <$element_name $attr_str />
-        """
+        "<$element_name$attr_str />"
     else
         """
-        <$element_name $attr_str>
+        <$element_name$attr_str>
             $content_str
         </$element_name>
         """

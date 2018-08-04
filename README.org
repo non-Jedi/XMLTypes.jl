@@ -100,10 +100,10 @@ with elements of the correct type.
       content::Vector{Union{String,XMLElement}}
   end#struct
 
-  name(::TestElement) = "test"
+  XMLTypes.name(::TestElement) = "test"
 
   attr = ["class" => "good", "id" => "4"]
-  cont = ["hello world", TestElement([], [])]
+  cont = ["hello world ", TestElement([], [])]
   t = TestElement(attr, cont)
 
   @test attributes(t) == attr
@@ -114,6 +114,13 @@ Additionally, we'll need a function for returning the name of an XML element:
 something like ~name(element::XMLElement) = "div"~. We'll create a macro for
 automating some of this stuff later.
 
+#+NAME: name
+#+BEGIN_SRC julia
+  # stub `name` method so users can override later
+  export name
+  name(::XMLElement) = ""
+#+END_SRC
+
 Now we need to turn an XML element type into its tag representation.
 
 #+NAME: dump
@@ -122,7 +129,7 @@ Now we need to turn an XML element type into its tag representation.
 
   "Turns an iterator of `Pair{String,String}` into standard XML tag attributes."
   function dump_attributes(attributes)::String
-      join(map(p -> "$(p.first)=\"$(p.second)\"", attributes), " ")
+      join(map(p -> " $(p.first)=\"$(p.second)\"", attributes), "")
   end
 
   "Turns an `XMLElement` into its canonical tag-form representation."
@@ -134,12 +141,10 @@ Now we need to turn an XML element type into its tag representation.
       content_str = join(dump.(content(element)), "")
       # If no content, we can use a self-closing tag
       if length(content(element)) == 0
-          """
-          <$element_name $attr_str />
-          """
+          "<$element_name$attr_str />"
       else
           """
-          <$element_name $attr_str>
+          <$element_name$attr_str>
               $content_str
           </$element_name>
           """
@@ -148,6 +153,17 @@ Now we need to turn an XML element type into its tag representation.
 
   # `content(element)` is mixed vector of strings and elements to fuse `dump` on
   dump(s::AbstractString) = s
+#+END_SRC
+
+#+NAME: test-dump
+#+BEGIN_SRC julia
+  const expected_dump = """
+  <test class="good" id="4">
+      hello world <test />
+  </test>
+  """
+
+  @test XMLTypes.dump(t) == expected_dump
 #+END_SRC
 
 *** Putting it all together
@@ -164,6 +180,8 @@ tests into ~runtests.jl~.
 
   <<attributes-and-content>>
 
+  <<name>>
+
   <<dump>>
 
   end#module
@@ -178,4 +196,6 @@ tests into ~runtests.jl~.
   end
 
   <<test-attributes-and-content>>
+
+  <<test-dump>>
 #+END_SRC

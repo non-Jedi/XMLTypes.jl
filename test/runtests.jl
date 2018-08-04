@@ -10,11 +10,19 @@ struct TestElement <: XMLElement
     content::Vector{Union{String,XMLElement}}
 end#struct
 
-name(::TestElement) = "test"
+XMLTypes.name(::TestElement) = "test"
 
 attr = ["class" => "good", "id" => "4"]
-cont = ["hello world", TestElement([], [])]
+cont = ["hello world ", TestElement([], [])]
 t = TestElement(attr, cont)
 
 @test attributes(t) == attr
 @test content(t) == cont
+
+const expected_dump = """
+<test class="good" id="4">
+    hello world <test />
+</test>
+"""
+
+@test XMLTypes.dump(t) == expected_dump
