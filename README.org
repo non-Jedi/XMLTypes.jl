@@ -1,0 +1,58 @@
+* XMLTypes
+
+The is the README for [[https://github.com/non-Jedi/XMLTypes.jl][XMLTypes.jl]], an attempt to use Julia's type system to
+sanely generate xml. In particular, I will be using this to write webpages in
+"XHTML5". As a [[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming][literate program]], this document is also the canonical source code
+for XMLTypes.jl.
+
+All text in this document, the source code generated from this document, and all
+other associated files are under copyright of [[Authors][the authors of XMLTypes.jl]] unless
+otherwise noted. The aforementioned items are available for your use subject to
+[[https://github.com/non-Jedi/XMLTypes.jl/blob/master/COPYING][the GNU Affero Public License, Version 3.0+]].
+
+** Contributing
+
+At this time this project follows a workflow for non-core contributors as
+follows:
+
+1. Fork [[https://github.com/non-Jedi/MatrixClientProtocol.jl][the repository for this software on github]].
+2. Checkout a new branch of the repository locally.
+3. Make changes to README.org on your branch.
+4. Add your name to [[Authors]].
+5. Commit changes, trying your best to follow best practices for commit scoping
+   and commit message formatting.
+6. Push your branch back to a branch on your github fork of the project.
+7. Issue a pull request from your branch to the master branch of the root
+   repository.
+8. I will review your pull request, merge it, generate the new "tangled" source
+   code from README.org, and push a new commit to master.
+
+If you are experienced with org-mode, you may include a commit generating new
+source code in your pull request. A description of how to do so is available in
+the org-mode documentation.
+
+By issuing a pull request to this repository, you agree to release your
+contribution under [[https://github.com/non-Jedi/MatrixClientProtocol.jl/blob/master/LICENSE.md][the terms of this project's license]].
+
+** Authors
+- [[https://matrix.to/#/@adam:thebeckmeyers.xyz][Adam Beckmeyer]]
+
+** COPYING
+#+NAME: copying
+#+BEGIN_SRC julia
+  # Copyright 2018 Adam Beckmeyer
+  #
+  # This file is part of XMLTypes.jl.
+  # XMLTypes.jl is free software: you can redistribute it and/or modify
+  # it under the terms of the GNU Affero General Public License as published by
+  # the Free Software Foundation, either version 3 of the License, or
+  # (at your option) any later version.
+  #
+  # XMLTypes.jl is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
+  # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  # GNU Affero General Public License for more details.
+  #
+  # You should have received a copy of the GNU Affero General Public License
+  # along with XMLTypes.jl.  If not, see <https://www.gnu.org/licenses/>.
+#+END_SRC
