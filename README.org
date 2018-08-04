@@ -56,3 +56,24 @@ contribution under [[https://github.com/non-Jedi/MatrixClientProtocol.jl/blob/ma
   # You should have received a copy of the GNU Affero General Public License
   # along with XMLTypes.jl.  If not, see <https://www.gnu.org/licenses/>.
 #+END_SRC
+** XMLTypes.jl
+
+Lastly, we bind all the previous segments together into ~XMLTypes.jl~ and the
+tests into ~runtests.jl~.
+
+#+BEGIN_SRC julia :tangle src/XMLTypes.jl :noweb yes
+  <<copying>>
+
+  module XMLTypes
+
+  end#module
+#+END_SRC
+
+#+BEGIN_SRC julia :tangle test/runtests.jl :noweb yes
+  using XMLTypes
+  @static if VERSION < v"0.7.0-DEV.2005"
+      using Base.Test
+  else
+      using Test
+  end
+#+END_SRC
